@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/config/route/app_route.dart';
 import 'package:flutter_application_1/config/theme/app_theme.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: '.env');
+ 
   runApp(const MyApp());
 }
 
@@ -10,21 +14,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: appRouter,
       title: 'My App',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme(selectedColor: 1).theme(),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Material App Bar'),
-        ),
-        body: Center(
-          child: FilledButton.tonal(
-            onPressed: (){}, 
-            child: const Text('Click me')
-          ),
-        ),
-      )
+      theme: AppTheme().theme(),
     );
   }
 }
